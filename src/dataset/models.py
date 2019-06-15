@@ -39,7 +39,7 @@ class DataSetJkh(models.Model):
     reviewed = models.BooleanField(default=False)
 
 
-def import_data_from_csv(file_name):
+def import_data_from_csv(file_name, organization_name=''):
     def load_from_csv(file_name):
         csv_rows = []
         with open(file_name, 'r', encoding="utf-8") as csvfile:
@@ -65,7 +65,7 @@ def import_data_from_csv(file_name):
         i['field_7'] = item['Последнее сообщение']
         i['field_8'] = item['Внимание']
         i['field_9'] = item['Примечания']
-        rec = DataSetJkh(**i)
+        rec = DataSetJkh(**i, organization=organization_name)
         rec.save()
     return True
 

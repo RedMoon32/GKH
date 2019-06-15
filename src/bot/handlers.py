@@ -2,6 +2,7 @@
 from vk_api.utils import get_random_id
 
 from core.models import UserStatuses, Organisation, CSV_File
+from dataset.models import import_data_from_csv, get_bill_by_name
 from src.bot.messages import *
 import urllib.request
 import os
@@ -58,9 +59,9 @@ def receive_file(vk, event, user, session):
         new.file_path = os.path.join(BASE_DIR, "files") + f"/{new.id}.csv"
         open(new.file_path, "w")
         urllib.request.urlretrieve(event.obj.attachments[0]["doc"]["url"], new.file_path)
-        org.files.add(new)
+        import_data_from_csv(new.file_path, org.name)
         org.save()
-        new.save()
+        new.delete()
         vk.messages.send(
             user_id=event.obj.from_id,
             random_id=get_random_id(),
@@ -87,7 +88,7 @@ def get_data(vk, event, user, session):
     vk.messages.send(
         user_id=event.obj.from_id,
         random_id=get_random_id(),
-        message=INFO)
+        message=INFO + get_bill_by_name(user.name))
 
 
 def enter_name(vk, event, user, session):
