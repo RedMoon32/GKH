@@ -4,6 +4,7 @@ from vk_api.utils import get_random_id
 from secrets import token
 from core.models import UserStatuses, UserData, VkSession
 from src.bot.handlers import *
+from src.gis.gislab import GisLab
 
 vk_session = vk_api.VkApi(token=token)
 vk = vk_session.get_api()
@@ -13,6 +14,7 @@ message_handlers = {
     "Помощь": get_help,
     "Счетчики": get_data,
     "Сбросить": downgrade,
+    "Сервис(ГИС)": GisLab
 }
 
 command_handlers = {
