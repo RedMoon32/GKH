@@ -70,7 +70,7 @@ def import_data_from_csv(file_name, organization_name=''):
     return True
 
 
-# import_data_from_csv('C:\work\хакартон\GKH\src\dataset\management\commands\data\water.csv')
+# import_data_from_csv(r'C:\roman\d15062019\GKH\src\dataset\management\commands\data\water.csv')
 
 def set_default_names():
     i = 1
