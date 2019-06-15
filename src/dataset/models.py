@@ -89,4 +89,4 @@ def get_bill_by_name(name):
         result += f'ФИО {item.fio} ; Объект {item.object_adr} ; ID счётчик {item.field_2} ; ХВС потр., м3 {item.field_6} \n '
     return result
 
-print(get_bill_by_name('Имя2'))
+# print(get_bill_by_name('Имя2'))
