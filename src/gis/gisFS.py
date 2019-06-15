@@ -1,47 +1,9 @@
 from adjGraph import Graph, Vertex
-import vk_api
-from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-from vk_api.utils import get_random_id
-
-
-longpoll = None
-vk_session=None
-vk_gis=None
-
-def GisLab(vk, event, user, session):
-    vk_gis=vk
-    vk_session=session
-    longpoll = VkBotLongPoll(vk_session, "183478400")
-    a=adjGraphGis()
-    a.GisMakeGraph(confGr)
-    pfor=a.initState
-    while pfor != None :
-        instr=pfor[2]()
-        pfor=a.GetNextFromChoice(instr)
-    print("End")
-return
 
 def gis_vk_print(ostr):
-#    print(ostr)
-    vk_gis.messages.send(
-            user_id=event.obj.from_id,
-            random_id=get_random_id(),
-            message=mess)
-
+    print(ostr)
 def gis_vk_input(ostr):
-    for event in longpoll.listen():
-        if event.type == VkBotEventType.MESSAGE_NEW:
-            print(event.obj.from_id, ' ', event.obj.text)
-            if event.obj.text != '':
-                if event.from_user:
-                    try:
-                        return event.obj.text
-                    except Exception as e:
-                        print(str(e))
-                        continue
- 
-    # return input(ostr)
-    return None
+    return input(ostr)
 
 def UserEnter():
     gis_vk_print('\n - OptCostServ (OptC)')

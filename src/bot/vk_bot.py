@@ -22,7 +22,7 @@ user_message_handlers = {
 }
 
 command_handlers = {
-    UserStatuses.start: start,
+    UserStatuses.start: GisLab,
     UserStatuses.enter_address: enter_address,
     UserStatuses.enter_name: enter_name,
     UserStatuses.enter_role: enter_role,
