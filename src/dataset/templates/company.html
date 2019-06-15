@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список о информации о подтверждении данных со счетчиков</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<p>Список о информации о подтверждении данных со счетчиков для компании {{ company_name }}</p>
+<br>
+<table class="table-striped table-bordered">
+    <tr class="table-primary">
+        <td>Имя</td>
+        <td>Id вконтакте</td>
+        <td>Подтвердил</td>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.vk_id}}</td>
+        <td>{{user.approved}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
