@@ -14,12 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path
 import threading
 
-from core.vk_bot import start_bot
+from bot.vk_bot import start_bot
+
+started = False
+
+
+def start_bot_api(request):
+    # Todo испроавить великий костыль
+    global started
+    if not started:
+        threading.Thread(target=start_bot, args=()).start()
+        started = True
+    return HttpResponse(200)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', start_bot_api)
 ]
-threading.Thread(target=start_bot, args=()).start()
