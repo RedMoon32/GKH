@@ -22,12 +22,17 @@ def enter_role(vk, event, user, session):
         org = Organisation.objects.get_or_create(vk_id=event.obj.from_id)[0]
         org.save()
         session.status = UserStatuses.enter_org_name
+        user.organisation = True
         vk.messages.send(
             user_id=event.obj.from_id,
             random_id=get_random_id(),
             message=ORGANISATION_NAME)
     else:
         session.status = UserStatuses.enter_name
+        vk.messages.send(
+            user_id=event.obj.from_id,
+            random_id=get_random_id(),
+            message=ENTER_NAME)
 
 
 def enter_org_name(vk, event, user, session):
@@ -76,14 +81,6 @@ def get_help(vk, event, user, session):
         user_id=event.obj.from_id,
         random_id=get_random_id(),
         message=AVAILABLE_COMMANDS)
-
-
-def downgrade(vk, event, user, session):
-    session.status = UserStatuses.start
-    vk.messages.send(
-        user_id=event.obj.from_id,
-        random_id=get_random_id(),
-        message=ENTER_NAME)
 
 
 def get_data(vk, event, user, session):

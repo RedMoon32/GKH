@@ -17,7 +17,7 @@ group_message_handlers = {
 user_message_handlers = {
     "Помощь": get_help,
     "Счетчики": get_data,
-    "Сбросить": downgrade,
+    "Сбросить": start,
     "Сервис(ГИС)": GisLab,
 }
 
@@ -35,8 +35,8 @@ def process_message_from_user(event):
     user_session = VkSession.objects.get_or_create(user=user)[0]
     handler = command_handlers.get(user_session.status, None)
     if handler is None:
-        if Organisation.objects.filter(vk_id=event.obj.from_id).exists():
-            handler = group_message_handlers.get(event.obj.text, )
+        if user.organisation:
+            handler = group_message_handlers.get(event.obj.text, receive_file)
         else:
             handler = user_message_handlers.get(event.obj.text, get_help)
     handler(vk, event, user, user_session)

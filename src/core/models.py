@@ -27,8 +27,8 @@ class UserData(models.Model):
     address = models.CharField(max_length=100, null=True, blank=True)
     name = models.CharField(max_length=100, null=True, blank=True)
     vk_id = models.IntegerField()
-
+    organisation = models.BooleanField(default=False)
 
 class VkSession(models.Model):
     user = models.ForeignKey(UserData, null=True, blank=True, on_delete=models.SET_NULL)
-    status = models.CharField(max_length=100, choices=UserStatuses.choices, default=UserStatuses.enter_role)
+    status = models.CharField(max_length=100, choices=UserStatuses.choices, default=UserStatuses.start)
