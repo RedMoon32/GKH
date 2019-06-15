@@ -13,7 +13,7 @@ def load_from_csv(file_name):
     # with open(os.path.join(JSON_PATH, file_name + '.csv'), 'r') as infile:
     #     return json.load(infile)
     csv_rows = []
-    with open(os.path.join(JSON_PATH, file_name + '.csv'), 'r') as csvfile:
+    with open(os.path.join(JSON_PATH, file_name + '.csv'), 'r', encoding="utf-8") as csvfile:
         # reader = csv.reader(csvfile, delimiter=';')
         reader = csv.DictReader(csvfile, delimiter=';')
         title = reader.fieldnames
