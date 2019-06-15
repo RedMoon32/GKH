@@ -1,2 +1,2 @@
-def GisLab(vk_chat):
+def GisLab(vk, event, user, session):
 return
