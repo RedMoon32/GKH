@@ -50,27 +50,27 @@ def import_data_from_csv(file_name, organization_name=''):
         return csv_rows
 
     data = load_from_csv(file_name)
+    refield = {'Дата': 'data',
+               'Объект': 'object_adr',
+               'ФИО': 'fio',
+               'Место расположения': 'location',
+               'ХВС модель ПУ': 'field_1',
+               'ХВС сер. ном.': 'field_2',
+               'ХВС ID': 'field_3',
+               'ХВС нач., м3': 'field_4',
+               'ХВС кон., м3': 'field_5',
+               'ХВС потр., м3': 'field_6',
+               'Последнее сообщение': 'field_7',
+               'Внимание': 'field_8',
+               'Примечания': 'field_9',
+               }
     for item in data:
-        i = {}
-        i['data'] = item['Дата']
-        i['object_adr'] = item['Объект']
-        i['fio'] = item['ФИО']
-        i['location'] = item['Место расположения']
-        i['field_1'] = item['ХВС модель ПУ']
-        i['field_2'] = item['ХВС сер. ном.']
-        i['field_3'] = item['ХВС ID']
-        i['field_4'] = item['ХВС нач., м3']
-        i['field_5'] = item['ХВС кон., м3']
-        i['field_6'] = item['ХВС потр., м3']
-        i['field_7'] = item['Последнее сообщение']
-        i['field_8'] = item['Внимание']
-        i['field_9'] = item['Примечания']
-        rec = DataSetJkh(**i, organization=organization_name)
+        rec = DataSetJkh(**{refield[key]: item[key] for key in refield.keys()})
         rec.save()
     return True
 
 
-# import_data_from_csv('C:\work\хакартон\GKH\src\dataset\management\commands\data\water.csv')
+# import_data_from_csv(r'C:\roman\d15062019\GKH\src\dataset\management\commands\data\water.csv')
 
 def set_default_names():
     i = 1

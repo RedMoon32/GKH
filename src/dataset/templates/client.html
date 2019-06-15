@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Показания счётчиков</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<p>Показания счётчиков для пользователя {{ fio }}</p>
+<br>
+<table class="table-striped table-bordered">
+    <tr class="table-primary">
+        <td>Объект</td>
+        <td>ID счётчик</td>
+        <td>ХВС потр., м3</td>
+    </tr>
+    {% for obj in objects %}
+    <tr>
+        <td>{{obj.object_adr}}</td>
+        <td>{{obj.field_2}}</td>
+        <td>{{obj.field_6}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
