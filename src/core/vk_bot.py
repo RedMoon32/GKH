@@ -22,4 +22,5 @@ def start_bot():
                             random_id=get_random_id(),
                             message="HELLO")
 
-if __name__=="__main_"
+if __name__=="__main__":
+    start_bot()
