@@ -14,7 +14,7 @@ message_handlers = {
     "Помощь": get_help,
     "Счетчики": get_data,
     "Сбросить": downgrade,
-    "Сервис(ГИС)": GisLab
+    "Сервис(ГИС)": GisLab,
 }
 
 command_handlers = {
