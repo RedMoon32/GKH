@@ -3,7 +3,6 @@
 import os
 import sys
 
-from core.vk_bot import start_bot
 
 
 def main():
@@ -17,7 +16,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-    start_bot()
+
 
 
 if __name__ == '__main__':

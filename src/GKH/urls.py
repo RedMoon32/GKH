@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import threading
+
+from core.vk_bot import start_bot
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+threading.Thread(target=start_bot, args=()).start()
