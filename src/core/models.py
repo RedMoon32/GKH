@@ -10,24 +10,23 @@ class UserStatuses(DjangoChoices):
     enter_org_name = ChoiceItem()
     enter_role = ChoiceItem()
     allowed_group = ChoiceItem()
+    approve = ChoiceItem()
+    enter_user_org = ChoiceItem()
     # enter_family = ChoiceItem()
-
-
-class CSV_File(models.Model):
-    file_path = models.CharField(null=True, max_length=100)
-
 
 class Organisation(models.Model):
     vk_id = models.IntegerField()
     name = models.CharField(max_length=100, null=True, blank=True)
-    files = models.ManyToManyField(CSV_File)
+
 
 
 class UserData(models.Model):
     address = models.CharField(max_length=100, null=True, blank=True)
     name = models.CharField(max_length=100, null=True, blank=True)
-    vk_id = models.IntegerField()
-    organisation = models.BooleanField(default=False)
+    vk_id = models.IntegerField(null=True)
+    is_organisation = models.BooleanField(default=False)
+    approved = models.BooleanField(default=None, null=True)
+    organisation = models.ForeignKey(to=Organisation, on_delete=models.SET_NULL, null=True)
 
 
 class VkSession(models.Model):

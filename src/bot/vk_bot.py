@@ -27,6 +27,7 @@ command_handlers = {
     UserStatuses.enter_name: enter_name,
     UserStatuses.enter_role: enter_role,
     UserStatuses.enter_org_name: enter_org_name,
+    UserStatuses.approve: approve,
 }
 
 
@@ -34,12 +35,19 @@ def process_message_from_user(event):
     user = UserData.objects.get_or_create(vk_id=event.obj.from_id)[0]
     user_session = VkSession.objects.get_or_create(user=user)[0]
     handler = command_handlers.get(user_session.status, None)
+    print('STATUS:', user_session.status)
     if handler is None:
         if user.organisation:
             handler = group_message_handlers.get(event.obj.text, receive_file)
         else:
             handler = user_message_handlers.get(event.obj.text, get_help)
-    handler(vk, event, user, user_session)
+    res = handler(vk, event, user, user_session)
+    print(res)
+    if type(res) is str:
+        vk.messages.send(
+            user_id=event.obj.from_id,
+            random_id=get_random_id(),
+            message=res)
     user_session.save()
     user.save()
 
