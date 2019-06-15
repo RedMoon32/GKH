@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path
+from django.urls import path, include
 import threading
 
 from bot.vk_bot import start_bot
@@ -34,5 +34,7 @@ def start_bot_api(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('client/', include('src.dataset.urls')),
     path('', start_bot_api)
+
 ]
