@@ -21,3 +21,5 @@ def start_bot():
                             user_id=event.obj.from_id,
                             random_id=get_random_id(),
                             message="HELLO")
+
+if __name__=="__main_"
