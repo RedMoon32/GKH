@@ -42,7 +42,7 @@ class DataSetJkh(models.Model):
 def import_data_from_csv(file_name):
     def load_from_csv(file_name):
         csv_rows = []
-        with open(file_name, 'r') as csvfile:
+        with open(file_name, 'r', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile, delimiter=';')
             title = reader.fieldnames
             for row in reader:
