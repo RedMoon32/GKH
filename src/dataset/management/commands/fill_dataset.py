@@ -26,7 +26,22 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = load_from_csv('water')
         for item in data:
-            print(item.values())
-            rec = DataSetJkh(**item.values())
-            rec.save()
+            i = {}
+            print(item)
+            i['data'] = item['Дата']
+            i['object_adr'] = item['Объект']
+            i['fio'] = item['ФИО']
+            i['location'] = item['Место расположения']
+            i['field_1'] = item['ХВС модель ПУ']
+            i['field_2'] = item['ХВС сер. ном.']
+            i['field_3'] = item['ХВС ID']
+            i['field_4'] = item['ХВС нач., м3']
+            i['field_5'] = item['ХВС кон., м3']
+            i['field_6'] = item['ХВС потр., м3']
+            i['field_7'] = item['Последнее сообщение']
+            i['field_8'] = item['Внимание']
+            i['field_9'] = item['Примечания']
+            print(i)
 
+            rec = DataSetJkh(**i)
+            rec.save()

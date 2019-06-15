@@ -30,32 +30,5 @@ class DataSetJkh(models.Model):
     field_8 = models.CharField(max_length=200)
     # 12 = {str} 'Примечания'
     field_9 = models.CharField(max_length=200)
-    # 13 = {str} ''
-    field_10 = models.CharField(max_length=200)
-    # 14 = {str} ''
-    field_11 = models.CharField(max_length=200)
-    # 15 = {str} ''
-    field_12 = models.CharField(max_length=200)
-    # 16 = {str} ''
-    field_13 = models.CharField(max_length=200)
-    # 17 = {str} ''
-    field_14 = models.CharField(max_length=200)
-    # 18 = {str} ''
-    field_15 = models.CharField(max_length=200)
-    # 19 = {str} ''
-    field_16 = models.CharField(max_length=200)
-    # 20 = {str} ''
-    field_17 = models.CharField(max_length=200)
-    # 21 = {str} ''
-    field_18 = models.CharField(max_length=200)
-    # 22 = {str} ''
-    field_19 = models.CharField(max_length=200)
-    # 23 = {str} ''
-    field_20 = models.CharField(max_length=200)
-    # 24 = {str} ''
-    field_21 = models.CharField(max_length=200)
-    # 25 = {str} ''
-    field_22 = models.CharField(max_length=200)
-    # 25 = {str} ''
     organization = models.CharField(max_length=200, default='Cтриж')
 
