@@ -1,2 +1,3 @@
 Django
 vk_api
+Django-Choices
