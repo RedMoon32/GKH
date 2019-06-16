@@ -49,17 +49,22 @@ def gis_vk_input(ostr,event):
     return None
 
 def UserEnter(event):
-    gis_vk_print('\n Menu GIS-Matlab',event)
-    gis_vk_print('\n - OptCostServ (OptC)',event)
-    gis_vk_print('\n - OptTotalCost (OptT)',event)
-    gis_vk_print('\n - Exit (X)',event)
-    istr=gis_vk_input('\n Enter choice:',event)
+    gis_vk_print('\n Меню ГИС',event)
+    gis_vk_print('\n - Отопление (OptC)',event)
+    gis_vk_print('\n - Общая стоимость услуг ЖКХ за год (OptT)',event)
+    gis_vk_print('\n - Выход (X)',event)
+    istr=gis_vk_input('\n Ваш выбор:',event)
     #return 'OptC'
     return istr
 
 def OptCostServ(event):
     #cs=input('\n Введите желаемую стоимость услуги')
-    gis_vk_input('\n Введите желаемую стоимость услуги=',event)
+    tstr=gis_vk_input('\n Введите желаемую стоимость услуги=',event)
+    if(tstr!=None):
+        gis_vk_print('\n Menu ГИС->Отопление.Стоимость',event)
+        gis_vk_print('\n 1. ООО TKO в Тепло - 400 руб/ггкал',event)
+        gis_vk_print('\n 2. ООО Термо в Тепло - 600 руб/ггкал',event)
+        gis_vk_print('\n 3. АО МонополистТепло - 1759 руб/ггкал',event)
     return 'DownRes'
 
 def OptTotalCost(event):
@@ -68,7 +73,7 @@ def OptTotalCost(event):
     return 'DownRes'
 
 def DownRes(event):
-    gis_vk_print('\n Out result',event)
+    gis_vk_print('\n Вывод завершен',event)
     return 'UserEnter'
 
 def get_id_num(ent):
