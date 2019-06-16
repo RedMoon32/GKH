@@ -86,7 +86,7 @@ def set_default_names():
 def get_bill_by_name(name):
     result = ''
     for item in DataSetJkh.objects.filter(fio=name):
-        result += f'ФИО {item.fio} ; Объект {item.object_adr} ; ID счётчик {item.field_2} ; ХВС потр., м3 {item.field_6} \n '
+        result += f'ID счётчик {item.field_2} ; Описание: {item.field_1}; Потребление {item.field_4}; Дата замера{item.field_7} \n------------------------\n '
     return result
 
 # print(get_bill_by_name('Имя2'))
