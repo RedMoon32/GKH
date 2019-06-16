@@ -1,3 +1,5 @@
 Django
 vk_api
 Django-Choices
+numpy
+scipy
