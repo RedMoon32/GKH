@@ -2,12 +2,9 @@ from src.gis.adjGraph import Graph, Vertex
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
-from src.secrets import token
+from src.bot.vk_session import *
+import sys
 from src.gis.Markovec import * 
-
-vk_session = vk_api.VkApi(token=token)
-vk = vk_session.get_api()
-longpoll = VkBotLongPoll(vk_session, "183478400")
 
 def GisLab(vk, event, user, session):
  #   vk_gis=vk
@@ -20,11 +17,10 @@ def GisLab(vk, event, user, session):
     while pfor != None :
         instr=pfor[2](event)
         pfor=a.GetNextFromChoice(instr)
-    print("End")
+    print("GisLab End")
     return
 
 def gis_vk_print(ostr,event):
-#    print(ostr)
     vk.messages.send(
             user_id=event.obj.from_id,
             random_id=get_random_id(),
@@ -34,6 +30,7 @@ def gis_vk_input(ostr,event):
     print('gis_vk_input')
     gis_vk_print(ostr,event)
     for event in longpoll.listen():
+        print("longpoll")
         if event.type == VkBotEventType.MESSAGE_NEW:
             print(event.obj.from_id, ' ', event.obj.text)
             if event.obj.text != '':
@@ -48,18 +45,18 @@ def gis_vk_input(ostr,event):
     return None
 
 def UserEnter(event):
-    gis_vk_print('\n Меню ГИС',event)
-    gis_vk_print('\n - Отопление (OptC)',event)
-    gis_vk_print('\n - Общая стоимость услуг ЖКХ за год (OptT)',event)
-    gis_vk_print('\n - Оптимальный портфель Марковица (M)',event)
-    gis_vk_print('\n - Выход (X)',event)
-    istr=gis_vk_input('\n Ваш выбор:',event)
+    gis_vk_print("Меню ГИС",event)
+    gis_vk_print("- Отопление (OptC)",event)
+    gis_vk_print("- Общая стоимость услуг ЖКХ за год (OptT)",event)
+    gis_vk_print('- Оптимальный портфель Марковица (M)',event)
+    gis_vk_print('- Выход (X)',event)
+    istr=gis_vk_input(' Ваш выбор:',event)
     #return 'OptC'
     return istr
 
 def printMarkovec(event):
 
-    tstr=gis_vk_input('\n Введите коэффициент допустимого риска%=',event)
+    tstr=gis_vk_input(' Введите коэффициент допустимого риска%=',event)
     print(tstr)
     if (tstr==None): return 'DownRes'
     k_d=float(tstr)
@@ -76,23 +73,23 @@ def printMarkovec(event):
 
 def OptCostServ(event):
     #cs=input('\n Введите желаемую стоимость услуги')
-    tstr=gis_vk_input('\n Введите желаемую стоимость услуги=',event)
+    tstr=gis_vk_input('Введите желаемую стоимость услуги=',event)
     if(tstr!=None):
-        gis_vk_print('\n Menu ГИС->Отопление.Стоимость',event)
-        gis_vk_print('\n 1. ООО TKO в Тепло - 400 руб/ггкал',event)
-        gis_vk_print('\n 2. ООО Термо в Тепло - 600 руб/ггкал',event)
-        gis_vk_print('\n 3. АО МонополистТепло - 1759 руб/ггкал',event)
+        gis_vk_print('Menu ГИС->Отопление.Стоимость',event)
+        gis_vk_print('1. ООО TKO в Тепло - 400 руб/ггкал',event)
+        gis_vk_print('2. ООО Термо в Тепло - 600 руб/ггкал',event)
+        gis_vk_print('3. АО МонополистТепло - 1759 руб/ггкал',event)
     return 'DownRes'
 
 def OptTotalCost(event):
     #cs=input('\n Введите желаемую общую стомость')
-    gis_vk_print('\n Menu ГИС->Общая.Стоимость',event) 
-    gis_vk_input('\n Введите желаемую общую стомость=',event)
-    gis_vk_print('\n Заглушка(Stub)',event)    
+    gis_vk_print(' Menu ГИС->Общая.Стоимость',event) 
+    gis_vk_input('Введите желаемую общую стомость=',event)
+    gis_vk_print(' Заглушка(Stub)',event)    
     return 'DownRes'
 
 def DownRes(event):
-    gis_vk_print('\n Вывод завершен',event)
+    gis_vk_print(' Вывод завершен',event)
     return 'UserEnter'
 
 def get_id_num(ent):
