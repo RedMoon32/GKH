@@ -30,7 +30,7 @@ class Command(BaseCommand):
             print(item)
             i['data'] = item['Дата']
             i['object_adr'] = item['Объект']
-            i['fio'] = item['ФИО']
+            i['fio'] = 'Иванов Иван Иванович'
             i['location'] = item['Место расположения']
             i['field_1'] = item['ХВС модель ПУ']
             i['field_2'] = item['ХВС сер. ном.']
@@ -43,5 +43,5 @@ class Command(BaseCommand):
             i['field_9'] = item['Примечания']
             print(i)
 
-            rec = DataSetJkh(**i)
+            rec = DataSetJkh(**i,)
             rec.save()

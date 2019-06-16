@@ -16,12 +16,13 @@ temp_file_lock = 0
 def get_list(vk, event, user, session):
     users = []
     company = Organisation.objects.get(vk_id=user.vk_id)
-    MESS = "Список пользователей не подтвердивших расчеты с приборов учета контроля: "
+    MESS = "Список пользователей не подтвердивших расчеты с приборов учета контроля:\n"
     approved = []
     declined = []
     awaiting = []
-    for info in DataSetJkh.objects.filter(organization=company.name):
-        us = UserData.objects.filter(name=info.fio)
+    names = set(obj['fio'] for obj in DataSetJkh.objects.filter(organization=company.name).values('fio'))
+    for info in names:
+        us = UserData.objects.filter(name=info)
         if us.exists():
             us = us[0]
             if us.approved:
@@ -113,6 +114,7 @@ def get_data(vk, event, user, session):
     if user.approved is None:
         return INFO + get_bill_by_name(user.name) + "\n" + APPROVED
     else:
+        session.status = UserStatuses.allowed
         return INFO + get_bill_by_name(user.name)
 
 
