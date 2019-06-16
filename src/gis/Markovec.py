@@ -1,6 +1,13 @@
 import numpy as np
 from scipy.optimize import minimize
 
+d=np.array( [[ 12.19916667],
+ [ 13.17116667],
+ [ 13.98283333],
+ [ 13.73466667],
+ [ 13.46983333],
+ [ 14.84666667]])
+
 def constraint2(x):
          x1=x[0];x2=x[1];x3=x[2]; x4=x[3]; x5=x[4];  x6=x[5]
          return 2.117*x1**2 + 3.546*x1*x2 + 4.512*x1*x3 + 4.694*x1*x4 + 4.154*x1*x5 \
@@ -9,8 +16,9 @@ def constraint2(x):
          + 4.63*x4*x6 + 2.723*x5**2 + 4.728*x5*x6 + 3.067*x6**2-2
 def constraint1(x):
          return x[0]+x[1]+x[2]+x[3]+x[4]+x[5]-1.0
+k_d=14.011
 def objective(x):      
-         return -(12.199*x[0] + 13.171*x[1] + 13.983*x[2] + 13.735*x[3] + 13.47*x[4]+ 14.847*x[5] )
+         return -(k_d*x[0] + k_d*x[1] + k_d*x[2] + k_d*x[3] + k_d*x[4]+ k_d*x[5] )
 x0=[1,1,1,1,1,1]
 b=(0.0,1.0)
 bnds=(b,b,b,b,b,b)

@@ -13,7 +13,7 @@ def GisLab(vk, event, user, session):
  #   vk_gis=vk
  #   vk_session=vk
  #   longpoll = VkBotLongPoll(vk_session, "183478400")
-
+    print('GisLab starting')
     a=adjGraphGis()
     a.GisMakeGraph(confGr)
     pfor=a.initState
@@ -57,20 +57,21 @@ def UserEnter(event):
     #return 'OptC'
     return istr
 
-def printMarcovec(event):
+def printMarkovec(event):
 
     tstr=gis_vk_input('\n Введите коэффициент допустимого риска%=',event)
+    print(tstr)
     if (tstr==None): return 'DownRes'
     k_d=float(tstr)
     sol=minimize(objective,x0,method='SLSQP',\
              bounds=bnds,constraints=cons)   
-    gis_vk_print("Максимум функции доходности -%s"%str(round(sol.fun,3)))
-    gis_vk_print("ООО TKO в Тепло   - %s, доходность- %s"%(round(sol.x[0],3),round(d[0,0]*sol.x[0],3)))
-    gis_vk_print("ООО Термо в Тепло - %s, доходность- %s"%(round(sol.x[1],3),round(d[1,0]*sol.x[1],3)))
-    gis_vk_print("АО МонополистТепло- %s, доходность- %s"%(round(sol.x[2],3),round(d[2,0]*sol.x[2],3)))
-    gis_vk_print("Компания 1 - %s, доходность- %s"%(round(sol.x[3],3),round(d[3,0]*sol.x[3],3)))
-    gis_vk_print("Компания 2 - %s, доходность- %s"%(round(sol.x[4],3),round(d[4,0]*sol.x[4],3)))
-    gis_vk_print("Компания 4 - %s, доходность- %s"%(round(sol.x[5],3),round(d[5,0]*sol.x[5],3)))
+    gis_vk_print("Максимум функции доходности -%s"%str(round(sol.fun,3)),event)
+    gis_vk_print("ООО TKO в Тепло   - %s, доходность- %s"%(round(sol.x[0],3),round(d[0,0]*sol.x[0],3)),event)
+    gis_vk_print("ООО Термо в Тепло - %s, доходность- %s"%(round(sol.x[1],3),round(d[1,0]*sol.x[1],3)),event)
+    gis_vk_print("АО МонополистТепло- %s, доходность- %s"%(round(sol.x[2],3),round(d[2,0]*sol.x[2],3)),event)
+    gis_vk_print("Компания 1 - %s, доходность- %s"%(round(sol.x[3],3),round(d[3,0]*sol.x[3],3)),event)
+    gis_vk_print("Компания 2 - %s, доходность- %s"%(round(sol.x[4],3),round(d[4,0]*sol.x[4],3)),event)
+    gis_vk_print("Компания 4 - %s, доходность- %s"%(round(sol.x[5],3),round(d[5,0]*sol.x[5],3)),event)
     return 'DownRes'
 
 def OptCostServ(event):
@@ -103,13 +104,13 @@ opt_total_cost={'3': ['OptTotalCost',OptTotalCost]}
 down_result={'4' : ['DownRes',DownRes]}
 
 dictGR={'1' : [1,'UserEnter',UserEnter],'2' : [2,'OptCostServ',OptCostServ],
-        '3': [3,'OptTotalCost',OptTotalCost], '4' : [4,'Markovec',printMarcovec],'5' : [5,'DownRes',DownRes]
+        '3': [3,'OptTotalCost',OptTotalCost], '4' : [4,'Markovec',printMarkovec],'5' : [5,'DownRes',DownRes],
 }
 
 confGr=((dictGR.get('1'),dictGR.get('2')),(dictGR.get('1'),dictGR.get('3')),(dictGR.get('1'),dictGR.get('4')),
       (dictGR.get('2'),dictGR.get('5')),(dictGR.get('3'),dictGR.get('5')),(dictGR.get('4'),dictGR.get('5')),
-      (dictGR.get('5'),dictGR.get('1'))
-    )
+      (dictGR.get('5'),dictGR.get('1')),
+)
 
 class adjGraphGis():
     def __init__(self):
