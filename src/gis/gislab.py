@@ -2,35 +2,43 @@ from gis.adjGraph import Graph, Vertex
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.utils import get_random_id
+from src.secrets import token
 
-longpoll = None
-vk_session = None
-vk_gis = None
+vk_session = vk_api.VkApi(token=token)
+vk = vk_session.get_api()
+longpoll = VkBotLongPoll(vk_session, "183478400")
 
 
 def GisLab(vk, event, user, session):
-    vk_gis = vk
-    vk_session = session
-    longpoll = VkBotLongPoll(vk_session, "183478400")
+    #   vk_gis=vk
+    #   vk_session=vk
+    #   longpoll = VkBotLongPoll(vk_session, "183478400")
+
     a = adjGraphGis()
     a.GisMakeGraph(confGr)
     pfor = a.initState
     while pfor != None:
-        instr = pfor[2]()
+        instr = pfor[2](event)
         pfor = a.GetNextFromChoice(instr)
     print("End")
     return
 
 
-def gis_vk_print(ostr):
+def gis_vk_print(ostr, event):
     #    print(ostr)
-    vk_gis.messages.send(
+    vk.messages.send(
         user_id=event.obj.from_id,
         random_id=get_random_id(),
-        message=mess)
+        message=ostr)
+
+>> >> >> > 0
+84
+c99046c76ac167f7a734ac663ef4a1e3ce3b6
 
 
-def gis_vk_input(ostr):
+def gis_vk_input(ostr, event):
+    print('gis_vk_input')
+    gis_vk_print(ostr, event)
     for event in longpoll.listen():
         if event.type == VkBotEventType.MESSAGE_NEW:
             print(event.obj.from_id, ' ', event.obj.text)
@@ -46,29 +54,35 @@ def gis_vk_input(ostr):
     return None
 
 
-def UserEnter():
-    gis_vk_print('\n - OptCostServ (OptC)')
-    gis_vk_print('\n - OptTotalCost (OptT)')
-    gis_vk_print('\n - Exit (X)')
-    istr = gis_vk_input('\n Enter choice:')
+def UserEnter(event):
+    gis_vk_print('\n Меню ГИС', event)
+    gis_vk_print('\n - Отопление (OptC)', event)
+    gis_vk_print('\n - Общая стоимость услуг ЖКХ за год (OptT)', event)
+    gis_vk_print('\n - Выход (X)', event)
+    istr = gis_vk_input('\n Ваш выбор:', event)
     # return 'OptC'
     return istr
 
 
-def OptCostServ():
+def OptCostServ(event):
     # cs=input('\n Введите желаемую стоимость услуги')
-    gis_vk_input('\n Введите желаемую стоимость услуги=')
+    tstr = gis_vk_input('\n Введите желаемую стоимость услуги=', event)
+    if (tstr != None):
+        gis_vk_print('\n Menu ГИС->Отопление.Стоимость', event)
+        gis_vk_print('\n 1. ООО TKO в Тепло - 400 руб/ггкал', event)
+        gis_vk_print('\n 2. ООО Термо в Тепло - 600 руб/ггкал', event)
+        gis_vk_print('\n 3. АО МонополистТепло - 1759 руб/ггкал', event)
     return 'DownRes'
 
 
-def OptTotalCost():
+def OptTotalCost(event):
     # cs=input('\n Введите желаемую общую стомость')
-    gis_vk_input('\n Введите желаемую общую стомость=')
+    gis_vk_input('\n Введите желаемую общую стомость=', event)
     return 'DownRes'
 
 
-def DownRes():
-    gis_vk_print('\n Out result')
+def DownRes(event):
+    gis_vk_print('\n Вывод завершен', event)
     return 'UserEnter'
 
 
