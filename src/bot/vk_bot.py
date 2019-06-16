@@ -18,7 +18,7 @@ user_message_handlers = {
     "Помощь": get_help,
     "Счетчики": get_data,
     "Сбросить": start,
-    "Сервис(ГИС)": GisLab,
+    "ГИС": GisLab,
 }
 
 command_handlers = {
