@@ -33,7 +33,7 @@ class DataSetJkh(models.Model):
     field_8 = models.CharField(max_length=200)
     # 12 = {str} 'Примечания'
     field_9 = models.CharField(max_length=200)
-    organization = models.CharField(max_length=200, default='Cтриж')
+    organization = models.CharField(max_length=200, default='Стриж')
     paid = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
     reviewed = models.BooleanField(default=False)

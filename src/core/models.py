@@ -14,10 +14,10 @@ class UserStatuses(DjangoChoices):
     enter_user_org = ChoiceItem()
     # enter_family = ChoiceItem()
 
+
 class Organisation(models.Model):
     vk_id = models.IntegerField()
     name = models.CharField(max_length=100, null=True, blank=True)
-
 
 
 class UserData(models.Model):
@@ -27,6 +27,9 @@ class UserData(models.Model):
     is_organisation = models.BooleanField(default=False)
     approved = models.BooleanField(default=None, null=True)
     organisation = models.ForeignKey(to=Organisation, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.name} vk.com/id{self.vk_id}\n"
 
 
 class VkSession(models.Model):

@@ -4,7 +4,7 @@ import threading
 from vk_api.utils import get_random_id
 
 from core.models import UserStatuses, Organisation, UserData
-from dataset.models import import_data_from_csv, get_bill_by_name
+from dataset.models import import_data_from_csv, get_bill_by_name, DataSetJkh
 from src.bot.messages import *
 import urllib.request
 import os
@@ -14,7 +14,26 @@ temp_file_lock = 0
 
 
 def get_list(vk, event, user, session):
-    pass
+    users = []
+    company = Organisation.objects.get(vk_id=user.vk_id)
+    MESS = "Список пользователей не подтвердивших расчеты с приборов учета контроля: "
+    approved = []
+    declined = []
+    awaiting = []
+    for info in DataSetJkh.objects.filter(organization=company.name):
+        us = UserData.objects.filter(name=info.fio)
+        if us.exists():
+            us = us[0]
+            if us.approved:
+                approved.append(us)
+            elif us.approved is False:
+                declined.append(us)
+            else:
+                awaiting.append(us)
+    if len(declined) > 0:
+        for appr in declined:
+            MESS += str(appr)
+    return MESS
 
 
 def start(vk, event, user, session):
@@ -70,13 +89,14 @@ def receive_file(vk, event, user, session):
         file_path = os.path.join(BASE_DIR, "files") + f"/{temp_file_lock}.csv"
         open(file_path, "w")
         urllib.request.urlretrieve(event.obj.attachments[0]["doc"]["url"], file_path)
-        #threading.Thread(target=process_file, args=(file_path, org))
+        # threading.Thread(target=process_file, args=(file_path, org))
         for user in UserData.objects.filter(organisation=org):
             user.approved = None
             user.save()
         import_data_from_csv(file_path, org.name)
         org.save()
         return LOADED
+
 
 # def enter_address(vk, event, user, session):
 #     user.address = event.obj.text
