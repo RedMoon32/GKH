@@ -48,7 +48,7 @@ def UserEnter(event):
     gis_vk_print("Меню ГИС",event)
     gis_vk_print("- Отопление (OptC)",event)
     gis_vk_print("- Общая стоимость услуг ЖКХ за год (OptT)",event)
-    gis_vk_print('- Оптимальный портфель Марковица (M)',event)
+    gis_vk_print('- Оптимальный портфель Марковица (MP)',event)
     gis_vk_print('- Выход (X)',event)
     istr=gis_vk_input(' Ваш выбор:',event)
     #return 'OptC'

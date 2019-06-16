@@ -9,19 +9,18 @@ from src.bot.vk_session import *
 
 group_message_handlers = {
     "Загрузить файл": receive_file,
-
+    "Список": get_list,
 }
 
 user_message_handlers = {
     "Помощь": get_help,
     "Счетчики": get_data,
     "Сбросить": start,
-    "Сервис(ГИС)": GisLab,
+    "Гис": GisLab,
 }
 
 command_handlers = {
-    UserStatuses.start: GisLab,
-    UserStatuses.enter_address: enter_address,
+    UserStatuses.start: start,
     UserStatuses.enter_name: enter_name,
     UserStatuses.enter_role: enter_role,
     UserStatuses.enter_org_name: enter_org_name,
@@ -30,12 +29,17 @@ command_handlers = {
 
 
 def process_message_from_user(event):
+    if not UserData.objects.filter(vk_id=event.obj.from_id).exists():
+        vk.messages.send(
+            user_id=event.obj.from_id,
+            random_id=get_random_id(),
+            message=TEST_DATA)
     user = UserData.objects.get_or_create(vk_id=event.obj.from_id)[0]
     user_session = VkSession.objects.get_or_create(user=user)[0]
     handler = command_handlers.get(user_session.status, None)
     print('STATUS:', user_session.status)
     if handler is None:
-        if user.organisation:
+        if user.is_organisation:
             handler = group_message_handlers.get(event.obj.text, receive_file)
         else:
             handler = user_message_handlers.get(event.obj.text, get_help)
@@ -51,6 +55,7 @@ def process_message_from_user(event):
 
 
 def start_bot():
+
     print("VK BOT IS WORKING")
     for event in longpoll.listen():
         if event.type == VkBotEventType.MESSAGE_NEW:
