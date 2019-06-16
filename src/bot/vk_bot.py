@@ -11,7 +11,7 @@ longpoll = VkBotLongPoll(vk_session, "183478400")
 
 group_message_handlers = {
     "Загрузить файл": receive_file,
-
+    "Список" : get_list
 }
 
 user_message_handlers = {
@@ -22,11 +22,11 @@ user_message_handlers = {
 }
 
 command_handlers = {
-    UserStatuses.start: GisLab,
-    UserStatuses.enter_address: enter_address,
+    UserStatuses.start: start,
     UserStatuses.enter_name: enter_name,
     UserStatuses.enter_role: enter_role,
     UserStatuses.enter_org_name: enter_org_name,
+    UserStatuses.enter_user_org: enter_user_org_name,
     UserStatuses.approve: approve,
 }
 
@@ -37,7 +37,7 @@ def process_message_from_user(event):
     handler = command_handlers.get(user_session.status, None)
     print('STATUS:', user_session.status)
     if handler is None:
-        if user.organisation:
+        if user.is_organisation:
             handler = group_message_handlers.get(event.obj.text, receive_file)
         else:
             handler = user_message_handlers.get(event.obj.text, get_help)
