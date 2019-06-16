@@ -31,10 +31,6 @@ def gis_vk_print(ostr, event):
         random_id=get_random_id(),
         message=ostr)
 
->> >> >> > 0
-84
-c99046c76ac167f7a734ac663ef4a1e3ce3b6
-
 
 def gis_vk_input(ostr, event):
     print('gis_vk_input')
